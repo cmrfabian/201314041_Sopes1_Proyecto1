@@ -1,0 +1,1 @@
+cmd_/home/christian/Documents/Modulos/RAM/memo_201314041.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/christian/Documents/Modulos/RAM/memo_201314041.ko /home/christian/Documents/Modulos/RAM/memo_201314041.o /home/christian/Documents/Modulos/RAM/memo_201314041.mod.o ;  true
