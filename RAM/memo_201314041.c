@@ -21,8 +21,6 @@
 
 
 struct sysinfo i;
-unsigned long pages[NR_LRU_LISTS];
-int lru;
 
 
 static int memo_show(struct seq_file *m, void *v){
@@ -35,9 +33,6 @@ static int memo_show(struct seq_file *m, void *v){
 
     #define K(x) ((x) << (PAGE_SHIFT - 10))
     si_meminfo(&i);
-
-    for (lru = LRU_BASE; lru < NR_LRU_LISTS; lru++)
-    pages[lru] = global_node_page_state(NR_LRU_BASE + lru);
 
     seq_printf(m,"Memoria Total: %8lu kB\n",K(i.totalram));
     seq_printf(m,"Memoria Libre: %8lu kB\n",K(i.freeram));
