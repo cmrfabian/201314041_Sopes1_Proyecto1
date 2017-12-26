@@ -24,18 +24,66 @@ static int cpu_show(struct seq_file *m, void *v){
     for_each_process(task) {
                         
         seq_printf(m,"PID:\t%d", task->pid);
-         seq_printf(m,"\tEstado: %ld", task->state);
+        //seq_printf(m,"\tValor estado: %ld", task->state);
         if(task->state == -1)
         {
-            seq_printf(m,"\tEstado: %s", "No ejecutable");
+            seq_printf(m,"\tEstado: %s", "Not runnable");
         }
         else if(task->state == 0)
         {
-            seq_printf(m,"\tEstado: %s", "R"); // Running
+            seq_printf(m,"\tEstado: %s", "Running      ");
+        }
+        else if(task->state == 1)
+        {
+            seq_printf(m,"\tEstado: %s", "Interruptible"); 
+        }
+        else if(task->state == 2)
+        {
+            seq_printf(m,"\tEstado: %s", "Uninterruptible"); 
+        }
+        else if(task->state == 4)
+        {
+            seq_printf(m,"\tEstado: %s", "Stopped       "); 
+        }
+        else if(task->state == 8)
+        {
+            seq_printf(m,"\tEstado: %s", "Traced        "); 
+        }
+        else if(task->state == 10)
+        {
+            seq_printf(m,"\tEstado: %s", "Dead          "); 
+        }
+        else if(task->state == 20)
+        {
+            seq_printf(m,"\tEstado: %s", "Zombie        "); 
+        }
+        else if(task->state == 40)
+        {
+            seq_printf(m,"\tEstado: %s", "Parked        "); 
+        }
+        else if(task->state == 80)
+        {
+            seq_printf(m,"\tEstado: %s", "Dead          "); 
+        }
+        else if(task->state == 100)
+        {
+            seq_printf(m,"\tEstado: %s", "Wakekill      "); 
+        }
+        else if(task->state == 200)
+        {
+            seq_printf(m,"\tEstado: %s", "Waking        "); 
+        }
+        else if(task->state == 400)
+        {
+            seq_printf(m,"\tEstado: %s", "NoLoad        "); 
+        }
+        else if(task->state == 800)
+        {
+            seq_printf(m,"\tEstado: %s", "New           "); 
         }
         else
         {
-            seq_printf(m,"\tEstado: %s", "Parado");
+            seq_printf(m,"\tEstado: %s", "State_max     ");
         }
         
         seq_printf(m,"\tNombre: %s\n", task->comm);

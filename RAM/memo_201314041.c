@@ -23,14 +23,11 @@
 struct sysinfo i;
 unsigned long pages[NR_LRU_LISTS];
 int lru;
-long cached;
-long available;
 
 
 static int memo_show(struct seq_file *m, void *v){
     long utilizada;
     long porcentaje;
-    available = si_mem_available();
 
     seq_printf(m, "201314041\n");
     seq_printf(m, "Christian Marlon Renato Fabián Natareno\n");
@@ -39,21 +36,14 @@ static int memo_show(struct seq_file *m, void *v){
     #define K(x) ((x) << (PAGE_SHIFT - 10))
     si_meminfo(&i);
 
-    cached = global_node_page_state(NR_FILE_PAGES) - i.bufferram;
-	if (cached < 0)
-		cached = 0;
-
     for (lru = LRU_BASE; lru < NR_LRU_LISTS; lru++)
     pages[lru] = global_node_page_state(NR_LRU_BASE + lru);
 
     seq_printf(m,"Memoria Total: %8lu kB\n",K(i.totalram));
     seq_printf(m,"Memoria Libre: %8lu kB\n",K(i.freeram));
-    seq_printf(m,"Memoria Disponible: %8lu kB\n",K(available));
-    //seq_printf(m,"Cached: %8lu kB\n",K(cached));
-    //seq_printf(m,"Buffers: %8lu kB\n",K(i.bufferram));
+
     
-    utilizada = K(i.totalram) - K(i.freeram) - K(cached);
-    //seq_printf(m,"Porcentaje de memoria utilizada: %8lu %%\n",utilizada);
+    utilizada = K(i.totalram) - K(i.freeram);
     porcentaje =  (utilizada * 100) / K(i.totalram);
     seq_printf(m,"Porcentaje de memoria utilizada: %8lu %%\n",porcentaje);
 
